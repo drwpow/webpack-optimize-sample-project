@@ -15,6 +15,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(jpg|jpeg|gif|png|svg|woff|woff2)$/,
@@ -26,7 +27,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
-    publicPath: '/dist/',
   },
 
   resolve: {
