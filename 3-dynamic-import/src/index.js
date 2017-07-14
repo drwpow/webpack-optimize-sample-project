@@ -13,10 +13,11 @@ import {
   withRouter
 } from 'react-router-dom';
 import styled, { injectGlobal } from 'styled-components';
+import Async from 'react-code-splitting';
 
-import Countdown from './views/countdown';
-import Home from './views/home';
-import Nav from './components/Nav';
+const Nav = () => (<Async load={import('./components/Nav')} />);
+const Home = () => (<Async load={import('./views/home')} />);
+const Countdown = () => (<Async load={import('./views/countdown')} />);
 
 import backgroundImage from './assets/background.svg';
 
