@@ -15,12 +15,15 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.(jpg|jpeg|gif|png|svg|woff|woff2)$/,
-        loader: 'file-loader',
+        use: {
+          loader: 'file-loader',
+          options: { name: '[name].[hash].[ext]' },
+        },
       },
     ],
   },

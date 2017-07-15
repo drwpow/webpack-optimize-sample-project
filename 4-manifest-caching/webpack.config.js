@@ -5,7 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const WebpackChunkHash = require('webpack-chunk-hash');
 
-module.exports = {
+/* Shared Dev & Production */
+
+const config = {
   context: path.resolve(__dirname, 'src'),
 
   entry: {
@@ -16,12 +18,15 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.(jpg|jpeg|gif|png|svg|woff|woff2)$/,
-        loader: 'file-loader',
+        use: {
+          loader: 'file-loader',
+          options: { name: '[name].[hash].[ext]' },
+        },
       },
     ],
   },
@@ -37,17 +42,10 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HashedModuleIdsPlugin(),
-    new WebpackChunkHash(),
-    new ChunkManifestPlugin({
-      filename: 'chunk-manifest.json',
-      manifestVariable: 'webpackManifest',
-      inlineManifest: true,
-    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       appMountId: 'app-root',
-      inlineManifestWebpackName: 'chunk-manifest.json',
+      inlineManifestWebpackName: 'webpackManifest',
       template: require('html-webpack-template'),
       title: '🌵🏜🌵 Welcome to Cactus World! 🌵🏜🌵',
     }),
@@ -57,3 +55,24 @@ module.exports = {
     historyApiFallback: true,
   },
 };
+
+/* Production */
+
+if (process.env.NODE_ENV === 'production') {
+  // Use [chunkhash]
+  config.output.filename = '[name].[chunkhash].js';
+  // Enable deterministic hashes
+  // -> https://webpack.js.org/guides/caching/#deterministic-hashes
+  config.plugins = [
+    ...config.plugins,
+    new webpack.HashedModuleIdsPlugin(),
+    new WebpackChunkHash(),
+    new ChunkManifestPlugin({
+      filename: 'chunk-manifest.json',
+      manifestVariable: 'webpackManifest',
+      inlineManifest: true,
+    }),
+  ];
+}
+
+module.exports = config;

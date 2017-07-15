@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "8.1.4"
+  },
   "scripts": {
     "build": "node_modules/.bin/webpack -p",
     "dev": "node_modules/.bin/webpack-dev-server"
