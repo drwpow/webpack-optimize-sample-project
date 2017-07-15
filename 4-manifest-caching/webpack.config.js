@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const WebpackChunkHash = require('webpack-chunk-hash');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -30,23 +32,28 @@ module.exports = {
   },
 
   resolve: {
-    // Assume extension-less files end in '.js'
     extensions: ['.js'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
 
   plugins: [
-    // Auto-generate the index.html file
-    // -> https://webpack.js.org/plugins/html-webpack-plugin/
+    new webpack.HashedModuleIdsPlugin(),
+    new WebpackChunkHash(),
+    new ChunkManifestPlugin({
+      filename: 'chunk-manifest.json',
+      manifestVariable: 'webpackManifest',
+      inlineManifest: true,
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       appMountId: 'app-root',
+      inlineManifestWebpackName: 'chunk-manifest.json',
       template: require('html-webpack-template'),
       title: '🌵🏜🌵 Welcome to Cactus World! 🌵🏜🌵',
     }),
   ],
 
   devServer: {
-    // Route all traffic to / in webpack-dev-server
     historyApiFallback: true,
   },
 };

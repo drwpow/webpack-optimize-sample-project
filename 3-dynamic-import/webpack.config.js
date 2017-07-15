@@ -35,10 +35,7 @@ module.exports = {
   },
 
   plugins: [
-
-    /* New addition */
     new webpack.optimize.ModuleConcatenationPlugin(),
-
     new HtmlWebpackPlugin({
       appMountId: 'app-root',
       template: require('html-webpack-template'),

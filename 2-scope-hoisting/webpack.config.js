@@ -35,8 +35,7 @@ module.exports = {
   },
 
   plugins: [
-
-    /* New addition */
+    // Add scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
 
     new HtmlWebpackPlugin({

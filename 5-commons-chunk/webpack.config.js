@@ -8,6 +8,7 @@ module.exports = {
 
   entry: {
     index: './index.js',
+    vendor: ['react', 'react-dom', 'react-router'],
   },
 
   module: {
@@ -30,14 +31,16 @@ module.exports = {
   },
 
   resolve: {
-    // Assume extension-less files end in '.js'
     extensions: ['.js'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
 
   plugins: [
-    // Auto-generate the index.html file
-    // -> https://webpack.js.org/plugins/html-webpack-plugin/
+    // Use 'vendor' bundle as global commons chunk
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       appMountId: 'app-root',
       template: require('html-webpack-template'),
@@ -46,7 +49,6 @@ module.exports = {
   ],
 
   devServer: {
-    // Route all traffic to / in webpack-dev-server
     historyApiFallback: true,
   },
 };
