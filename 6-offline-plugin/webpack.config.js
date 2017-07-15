@@ -3,6 +3,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 const WebpackChunkHash = require('webpack-chunk-hash');
 
 /* Shared Dev & Production */
@@ -43,16 +44,19 @@ const config = {
   },
 
   plugins: [
-    // Use 'vendor' bundle as global commons chunk
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       appMountId: 'app-root',
-      inlineManifestWebpackName: 'webpackManifest',
       template: require('html-webpack-template'),
       title: '🌵🏜🌵 Welcome to Cactus World! 🌵🏜🌵',
+    }),
+    // Add offline plugin (should be last)
+    new OfflinePlugin({
+      AppCache: false,
+      ServiceWorker: { events: true },
     }),
   ],
 

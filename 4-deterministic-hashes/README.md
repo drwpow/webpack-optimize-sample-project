@@ -5,6 +5,8 @@ until file contents change.
 
 ## Installation
 
+Run
+
 ```
 yarn add chunk-manifest-webpack-plugin webpack-chunk-hash
 ```

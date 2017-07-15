@@ -37,7 +37,7 @@ const MyModule = () => import('./components/MyModule');
 
 _Note: if you’re using React, also consider
 [React Code Splitting](https://github.com/didierfranc/react-code-splitting)
-as it’s a big time-saver.
+as it’s a big time-saver._
 
 ## Stats
 
