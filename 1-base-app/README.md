@@ -1,6 +1,7 @@
 # Base App
 
-This is the plain, unoptimized version of an application, with a minimal webpack config.
+This is the plain, unoptimized version of an application, with a minimal
+webpack config.
 
 | Bundles    | Before uglification | Uglified | Uglified & gzipped |
 |------------|--------------------:|---------:|-------------------:|

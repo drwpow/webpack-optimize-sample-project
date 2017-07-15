@@ -6,7 +6,9 @@ feature. Keep in mind there may be some duplication.
 
 ## Installation
 
-Add the [Dynamic Import plugin](https://www.npmjs.com/package/babel-plugin-syntax-dynamic-import) for Babel:
+Add the
+[Dynamic Import plugin](https://www.npmjs.com/package/babel-plugin-syntax-dynamic-import)
+for Babel:
 
 ```
 yarn add babel-plugin-syntax-dynamic-import
