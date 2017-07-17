@@ -50,6 +50,7 @@ const config = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlWebpackPlugin({
       appMountId: 'app-root',
+      inlineManifestWebpackName: 'webpackManifest',
       template: require('html-webpack-template'),
       title: '🌵🏜🌵 Welcome to Cactus World! 🌵🏜🌵',
     }),
