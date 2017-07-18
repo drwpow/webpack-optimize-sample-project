@@ -25,14 +25,16 @@ import backgroundImage from './assets/background.svg';
 
 const runtime = require('offline-plugin/runtime');
 
-runtime.install({
-  onUpdateReady() {
-    runtime.applyUpdate();
-  },
-  onUpdated() {
-    window.location.reload();
-  },
-});
+if (process.env.NODE_ENV === 'production') {
+  runtime.install({
+    onUpdateReady() {
+      runtime.applyUpdate();
+    },
+    onUpdated() {
+      window.location.reload();
+    },
+  });
+}
 
 injectGlobal`
 html,
